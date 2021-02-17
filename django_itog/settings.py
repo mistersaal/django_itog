@@ -25,7 +25,7 @@ SECRET_KEY = '!!y6v3m^3-quj#0cq4f*4gotwdm0-8(7w@+li7s2d@ym#f8rnn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mynovel.ml', '127.0.0.1']
 
 
 # Application definition
