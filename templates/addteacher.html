@@ -1,0 +1,91 @@
+{% extends 'index.html' %}
+{% block content %}<!-- Button trigger modal -->
+
+    {% if update %}
+        <div class="col-5">
+        <h1 class="mb-4">Редактирование</h1>
+        <p class="mt-4">Страница редактирования</p>
+        <p><a href="{% url 'AddTeacher' %}">Вернуться назад</a></p>
+
+        <form id="update_data" method="post">
+            {% csrf_token %}
+            {{form}}
+        </form>
+    <button form="update_data" type="submit" class="btn btn-primary mt-4">Обновить</button>
+        </div>
+    {% else %}
+            <h1 class="mb-4">Добавление/удаление занятий</h1>
+            {% if request.user.id == 1 %}
+            <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">
+                Добавить преподавателей
+            </button>
+            {% endif %}
+            {% if success %}
+                <p style="color: green">Запись добавлена</p>
+            {% endif %}
+
+                <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Фамилия</th>
+                  <th scope="col">Имя</th>
+                  <th scope="col">Отчество</th>
+
+                    {% if  request.user.id == 1%}
+                        <th scope = "col">Аккаунт</th>
+                    <th scope="col">Редактирование</th>
+                    <th>Удаление</th>
+                    {% endif %}
+                </tr>
+              </thead>
+              <tbody>
+              {% for i in list_teacher%}
+                <tr>
+                  <td>{{ i.last_name }}</td>
+                  <td>{{ i.first_name }}</td>
+                  <td>{{ i.middle_name }}</td>
+                  {% if  request.user.id == 1%}
+                      <td>{{ i.user_id }}</td>
+                      <td >
+                        <a href="{% url 'updateTeacher' i.id%}">Редактировать</a>
+                      </td>
+                            <td >
+                        <a href="{% url 'delete_teacher' i.id%}">Удалить</a>
+                      </td>
+                        {% endif %}
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+            <div class="col-5">
+
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Добавление пары</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+                    <form id="add_form" method="post">
+                        {% csrf_token %}
+                        {{ form }}
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button  form="add_form" type="submit" class="btn btn-primary">Сохранить</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+    {% endif %}
+
+
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'index.html' %}
+    {% block content %}
+        <h1>Регистрация</h1>
+        <div class="col-5">
+        <form id="reg_form" method="post">
+                {% csrf_token %}
+                {{ form }}
+        <button  form="reg_form" type="submit" class="btn btn-primary mt-4">Зарегистрироваться</button>
+        </form>
+        </div>
+    {% endblock %}

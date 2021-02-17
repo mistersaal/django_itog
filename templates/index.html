@@ -1,0 +1,103 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+
+  <div class="container mt-4">
+      <ul class="nav nav-pills">
+      <li class="nav-item">
+          {% url 'IndexView' as url_indexview %}
+        <a class="nav-link {% if url_indexview == request.path %} active{% endif %}" href="/">Главная</a>
+      </li>
+
+      <li class="nav-item ml-3">
+      {% if request.user.id != 1 %}
+      {% url 'AddCouple' as url_addcouple %}
+        <a class="nav-link {% if url_addcouple == request.path %} active{% endif %}" href="{{url_addcouple}}">{% if request.user.is_authenticated %}Добавить/ред/удалить занятие{% else %}Просмотр списка занятий{% endif %}</a>
+      </li>
+      {% endif %}
+      {% if request.user.is_authenticated %}
+          <li class="nav-item ml-3">
+          <div class="btn-group">
+          {% url 'AddGroup' as url_add_group %}
+          {% url 'AddStudent' as url_add_student %}
+          {% url 'AddCoupleAdmin' as url_add_couple_admin %}
+          {% url 'AddTeacher' as url_add_teacher %}
+              <button type="button" class="btn{% if url_add_group == request.path or url_add_student == request.path or url_add_couple_admin == request.path or url_add_teacher == request.path%} btn-primary{% endif %} dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {% if request.user.id != 1 %}Посмотреть список{% else %}Добавление/ред/удаление{% endif %}
+              </button>
+              <div class="dropdown-menu">
+
+                <a class="dropdown-item " href="{{url_add_group}}">Групп</a>
+                <a class="dropdown-item  " href="{{url_add_student}}">Студентов</a>
+                <a class="dropdown-item  " href="{{url_add_teacher}}">Преподавателей</a>
+                {% if request.user.id == 1 %}
+                <a class="dropdown-item  " href="{{ url_add_couple_admin }}">Занятий</a>
+                {% endif %}
+              </div>
+          </div>
+
+            </li>
+      {% endif %}
+      {% if request.user.id == 1 %}
+                <li class="nav-item ml-3">
+                {% url 'register_page' as url_register_page %}
+                <a class="nav-link {% if url_register_page == request.path %} active{% endif %}" href="{{url_register_page}}">Регистрация аккаунтов для преподавателей</a>
+                </li>
+          {% endif %}
+      {% if request.user.is_authenticated %}
+
+            <li class="nav-item ml-auto">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">{{ request.user }}</a>
+            </li>
+
+
+          <li class="nav-item">
+                {% url 'logout_page' as url_logout_page %}
+                <a class="nav-link btn-danger " href="{{url_logout_page}}">Выйти</a>
+            </li>
+      {% else %}
+          <li class="nav-item ml-auto">
+      {% url 'login_page' as url_login_page %}
+        <a class="nav-link {% if url_login_page == request.path %} active{% endif %}" href="{{url_login_page}}">Авторизация</a>
+      </li>
+
+      {% endif %}
+
+
+
+    </ul>
+    <div class="mt-4 mb-4">
+        {% block content %}
+            <h2 class="">Выберите группу:</h2>
+            <h4 class="mt-4">
+                {% for i in list_groups %}
+                    <a href="couple/{{ i.id }}">{{ i.name }}</a>
+                {% endfor %}
+            </h4>
+        {% endblock %}
+    </div>
+  </div>
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+    <!-- Option 2: jQuery, Popper.js, and Bootstrap JS
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

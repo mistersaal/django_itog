@@ -1,0 +1,152 @@
+{% extends 'index.html' %}
+    {% block content %}
+    <div class="row">
+            <div class="col-4 ">
+            <div class="border border-dark rounded" style="min-height: 100%">
+            <table class="table ">
+              <thead>
+                <tr>
+                  <th scope="col" colspan="3">MONDAY </th>
+                </tr>
+              </thead>
+              <tbody>
+
+              {% for ob in  list_couple %}
+                  {% if ob.day_week == 'MON'  %}
+                      <tr>
+                        <th> {{ ob.couple_n }}</th>
+                          <td><p class="mb-0 h6">{{ ob.subject_id }}</p>
+                            <small class="mb-0 text-muted">{{ ob.teacher_id}}</small></td>
+                        <td> {{ ob.classroom_id.name }}</td>
+
+                      </tr>
+                    {% endif %}
+              {% endfor %}
+
+              </tbody>
+            </table>
+            </div>
+            </div>
+            <div class="col-4">
+            <div class="border border-dark rounded" style="min-height: 100%">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col" colspan="3">THUESDAY</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for ob in  list_couple%}
+                  {% if ob.day_week == 'TUE'  %}
+                      <tr>
+                        <th> {{ ob.couple_n }}</th>
+                          <td><p class="mb-0 h6">{{ ob.subject_id }}</p>
+                            <small class="mb-0 text-muted">{{ ob.teacher_id}}</small></td>
+                        <td> {{ ob.classroom_id.name }}</td>
+
+                      </tr>
+                    {% endif %}
+              {% endfor %}
+              </tbody>
+            </table>
+            </div>
+            </div>
+            <div class="col-4">
+            <div class="border border-dark rounded" style="min-height: 100%">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col" colspan="3">WEDNESDAY</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for ob in  list_couple%}
+                  {% if ob.day_week == 'WED' %}
+                      <tr>
+                        <th> {{ ob.couple_n }}</th>
+                          <td><p class="mb-0 h6">{{ ob.subject_id }}</p>
+                            <small class="mb-0 text-muted">{{ ob.teacher_id}}</small></td>
+                        <td> {{ ob.classroom_id.name }}</td>
+
+                      </tr>
+                    {% endif %}
+              {% endfor %}
+              </tbody>
+            </table>
+            </div>
+            </div>
+        </div><div class="row mt-4">
+            <div class="col-4 ">
+            <div class="border border-dark rounded" style="min-height: 100%">
+            <table class="table ">
+              <thead>
+                <tr>
+                  <th scope="col" colspan="3">THURSDAY</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for ob in  list_couple%}
+                  {% if ob.day_week == 'THU' %}
+                      <tr>
+                        <th> {{ ob.couple_n }}</th>
+                          <td><p class="mb-0 h6">{{ ob.subject_id }}</p>
+                            <small class="mb-0 text-muted">{{ ob.teacher_id}}</small></td>
+                        <td> {{ ob.classroom_id.name }}</td>
+
+                      </tr>
+                    {% endif %}
+              {% endfor %}
+              </tbody>
+            </table>
+            </div>
+            </div>
+            <div class="col-4">
+            <div class="border border-dark rounded" style="min-height: 100%">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col" colspan="3">FRIDAY</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for ob in  list_couple%}
+                  {% if ob.day_week == 'FRI'%}
+                      <tr>
+                        <th> {{ ob.couple_n }}</th>
+                          <td><p class="mb-0 h6">{{ ob.subject_id }}</p>
+                            <small class="mb-0 text-muted">{{ ob.teacher_id}}</small></td>
+                        <td> {{ ob.classroom_id.name }}</td>
+
+                      </tr>
+                    {% endif %}
+              {% endfor %}
+              </tbody>
+            </table>
+            </div>
+            </div>
+            <div class="col-4">
+            <div class="border border-dark rounded" style="min-height: 100%">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col" colspan="3">SATURDAY</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for ob in  list_couple%}
+                  {% if ob.day_week == 'SAT'%}
+                      <tr>
+                        <th> {{ ob.couple_n }}</th>
+                          <td><p class="mb-0 h6">{{ ob.subject_id }}</p>
+                            <small class="mb-0 text-muted">{{ ob.teacher_id}}</small></td>
+                        <td> {{ ob.classroom_id.name }}</td>
+
+                      </tr>
+                    {% endif %}
+              {% endfor %}
+              </tbody>
+            </table>
+            </div>
+            </div>
+        </div>
+    {% endblock %}

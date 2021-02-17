@@ -1,0 +1,84 @@
+{% extends 'index.html' %}
+{% block content %}<!-- Button trigger modal -->
+    {% if update %}
+        <div class="col-5">
+        <h1 class="mb-4">Редактирование</h1>
+        {% if success_update %}
+        <p style="color:red">Запись обновлена</p>
+        {% endif %}
+        <p class="mt-4">Страница редактирования</p>
+        <p><a href="{% url 'AddGroup' %}">Вернуться назад</a></p>
+        <form id="update_data" method="post">
+            {% csrf_token %}
+            {{form}}
+        </form>
+    <button form="update_data" type="submit" class="btn btn-primary mt-4">Обновить</button>
+        </div>
+    {% else %}
+    <h1 class="mb-4">Добавление/удаление/редактирование групп</h1>
+    {% if  request.user.id == 1%}
+    <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">
+        Добавить группу
+    </button>
+    {% endif %}
+    {% if success %}
+        <p style="color: green">Запись добавлена</p>
+    {% endif %}
+
+        <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">№</th>
+          <th scope="col">Специальность</th>
+            {% if  request.user.id == 1%}
+            <th>Редактирование</th>
+            <th>Удаление</th>
+            {% endif %}
+        </tr>
+      </thead>
+      <tbody>
+      {% for i in list_group%}
+        <tr>
+          <th>{{ i.name }}</th>
+          <td>{{ i.speciality_id.name }}</td>
+            {% if  request.user.id == 1%}
+          <td >
+            <a href="{% url 'updateGroup' i.id%}">Редактировать</a>
+          </td>
+            <td >
+            <a href="{% url 'delete_group' i.id%}">Удалить</a>
+          </td>
+            {% endif %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <div class="col-5">
+
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Добавление пары</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <form id="add_form" method="post">
+                {% csrf_token %}
+                {{ form }}
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            <button  form="add_form" type="submit" class="btn btn-primary">Сохранить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endif %}
+{% endblock %}
